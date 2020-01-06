@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <title>Listing des restaurants</title>
+</head>
+<body>
+    <div class="container" id="app">
+
+            <div class="card">
+                    <div class="card-body">
+                            <div class="row">
+                                    <nav class="navbar navbar-light bg-light">
+                                            <form class="form-inline">
+                                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-model="name">
+                                              <button class="btn btn-outline-success my-2 my-sm-0" v-on:click="rechercher" type="button">Search</button>
+                                            </form>
+                                          </nav>
+                            </div>
+                    
+                            <div class="row">
+                                    <div >
+                    
+                                            <table class="table">
+                                                    <thead>
+                                                      <tr>
+                                                            <td> <strong> ID </strong> </td>
+                                            
+                                                            <td> <strong> Nom</strong></td>
+                                                            
+                                                            <td>  <strong> Cuisine</strong></td>
+                                                            <td> <strong> Address </strong></td>
+                                                            
+                                                            <td>  <strong> Localite</strong></td>
+                                                            <td>  <strong> Action</strong></td>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      
+                                                    <tr v-for="restaurant in restaurants" >
+                                                            
+                                                           
+                                                            <td><a  href="detail.html" v-on:click="onfindRestaurant(restaurant._id)">Details</td>
+                                                            
+                                                            <td>{{ restaurant.name }}</td>
+                                                            
+                                                            <td>{{ restaurant.cuisine }}</td>
+                                                            <td>{{ restaurant.address.street}}</td>
+                                                            <td>{{ restaurant.borough }}</td>
+                                                            <td>
+                                                                    <button id="open" type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="update" v-on:click="update(restaurant)">update</button>
+                                                             
+
+                                                                    <button type="button" class="btn btn-outline-danger btn-sm" v-on:click="supprimer(restaurant._id)"> delete</button>
+                                                            
+                                                            </td>
+                                                            
+                                                            </tr>
+                                                            
+                                
+                                                    </tbody>
+                                                  </table>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                        
+                                    </div>
+                            </div>
+                            
+                    </div>
+                  </div>
+        
+       
+                  <div v-if="currentRestaurant" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modification</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="form-group">
+                                <label for="recipient-id" class="col-form-label">Identifiant:</label>
+                                <input type="text" class="form-control" id="recipient-id" v-model="currentRestaurant._id" disabled>
+                              </div>
+                              <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Nom:</label>
+                                <input type="text" class="form-control" id="recipient-name" v-model="currentRestaurant.name">
+                              </div>
+                              <div class="form-group">
+                                <label for="recipient-cuisine" class="col-form-label">Cuisine:</label>
+                                <input type="text" class="form-control" id="recipient-cuisine" v-model="currentRestaurant.cuisine">
+                              </div>
+                              <div class="form-group">
+                                <label for="recipient-address" class="col-form-label">Adresse:</label>
+                                <input type="text" class="form-control" id="recipient-address" v-model="currentRestaurant.address.street">
+                              </div>
+                              <div class="form-group">
+                                <label for="recipient-localitate" class="col-form-label">Localité:</label>
+                                <input type="text" class="form-control" id="recipient-localitate" v-model="currentRestaurant.borough">
+                              </div>
+                              
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button id="closemodal" type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-primary" v-on:click="onUpdateRestaurant" data-dismiss="modal">Modifier</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="./js/restaurants.js"></script>
+        
+        
+    </body>
+</html>
