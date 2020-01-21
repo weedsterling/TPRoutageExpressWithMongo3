@@ -16,3 +16,5 @@
  #   -  des commentaires pour un restaurant
   #  - Afficher les écrans sur une Map (Google Maps) et utiliser les fonctions cluster
 # pour regrouper les restaurants les plus proches.
+
+Pour la premiere fonctionnalité qui est d'afficher les restaurants les plus proches de la position de l'utilisateur, nous allons tout d'abord creer une interface qui permettra d'une part de creer un utilisateur et d'autre part de lui permettre se connecter si il existe deja dans la base de données. Pour ce faire nous allons utiliser l'outil Vue-cli pour mettre rapidement en place les bases d’une application monopage ambitieuse. Il offre une série de builds pré-configurés pour un workflow frontend moderne. 
